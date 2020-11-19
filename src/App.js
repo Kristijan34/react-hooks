@@ -1,25 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
 
-function App() {
+import React, { useState, useEffect } from 'react';
+import fetchData from './fetch-data';
+
+const App = (props) => {
+  const {data, isLoading} = fetchData (
+    "https://jsonplaceholder.typicode.com/users",
+  )
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+    <div>
+      {isLoading ? <div>Loading...</div> :
+        <ol>
+          {data.map((user) => {
+            return <li key={user.id}>{user.name}</li>
+          })}
+        </ol>
+      }
 
+
+    </div>
+  )
+}
 export default App;
